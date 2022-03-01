@@ -9,7 +9,7 @@ namespace RT_ISICG
 
 		//float alpha = glm::dot(p_ray.getDirection(), p_ray.getDirection() ); // Normalisé donc on peut le remplacer par 1;
 		float beta	= 2.f * ( glm::dot( p_ray.getDirection(), origcenter ) );
-		float gamma = glm::dot( p_ray.getDirection(), p_ray.getDirection() ) - _radius * _radius;
+		float gamma = glm::dot( origcenter, origcenter ) - _radius * _radius;
 
 		float delta = beta * beta - 4 * gamma;
 

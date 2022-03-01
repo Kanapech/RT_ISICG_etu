@@ -50,8 +50,25 @@ namespace RT_ISICG
 					i,
 					j,
 					Vec3f( intAsFloat( i ) / intAsFloat( width ), intAsFloat( j ) / intAsFloat( height ), 0 ) );*/
-				Ray r = p_camera->generateRay( ( i + 0.5 ) / ( width-1 ), ( j + 0.5 ) / ( height-1 ) );
-				p_texture.setPixel( i, j, ( r.getDirection() + 1.f ) * 0.5f );
+
+
+				/* Ray r	   = p_camera->generateRay( ( i + 0.5f ) / width, ( j + 0.5f ) / height );
+				Vec3f couleur = _integrator->Li( p_scene, r, 0.f, 100.f );
+				
+				//p_texture.setPixel( i, j, ( r.getDirection() + 1.f ) * 0.5f );
+				p_texture.setPixel( i, j, couleur );*/
+				Vec3f moy = VEC3F_ZERO;
+
+				for (int k = 0; k < _nbPixelSamples; k++) {
+					float randomx = rand() % _nbPixelSamples;
+					float randomy = rand() % _nbPixelSamples;
+					Ray r = p_camera->generateRay( ( i + randomx / _nbPixelSamples ) / width, ( j + randomy / _nbPixelSamples ) / height );
+					Vec3f couleur = _integrator->Li( p_scene, r, 0.f, 100.f );
+					moy += couleur;
+				}
+
+				moy /= (float) _nbPixelSamples;
+				p_texture.setPixel( i, j, glm::clamp( moy, VEC3F_ZERO, Vec3f( 1.f ) ) );
 			}
 			progressBar.next();
 		}
