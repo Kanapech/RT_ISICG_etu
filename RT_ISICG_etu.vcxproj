@@ -140,6 +140,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\objects\plane.cpp" />
+    <ClCompile Include="src\geometry\plane_geometry.cpp" />
     <ClCompile Include="src\cameras\perspective_camera.cpp" />
     <ClCompile Include="src\geometry\sphere_geometry.cpp" />
     <ClCompile Include="src\integrators\ray_cast_integrator.cpp" />
@@ -151,6 +153,8 @@
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\plane.hpp" />
+    <ClInclude Include="src\geometry\plane_geometry.hpp" />
     <ClInclude Include="src\cameras\base_camera.hpp" />
     <ClInclude Include="src\cameras\perspective_camera.hpp" />
     <ClInclude Include="src\geometry\base_geometry.hpp" />
