@@ -50,7 +50,7 @@ namespace RT_ISICG
 					i,
 					j,
 					Vec3f( intAsFloat( i ) / intAsFloat( width ), intAsFloat( j ) / intAsFloat( height ), 0 ) );
-				Ray r = p_camera->generateRay( i + 0.5, j + 0.5 );
+				Ray r = p_camera->generateRay( ( i + 0.5 ) / ( width-1 ), ( j + 0.5 ) / ( height-1 ) );
 				p_texture.setPixel( i, j, ( r.getDirection() + 1.f ) * 0.5f );
 			}
 			progressBar.next();
