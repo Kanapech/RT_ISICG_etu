@@ -46,10 +46,10 @@ namespace RT_ISICG
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				p_texture.setPixel(
+				/* p_texture.setPixel(
 					i,
 					j,
-					Vec3f( intAsFloat( i ) / intAsFloat( width ), intAsFloat( j ) / intAsFloat( height ), 0 ) );
+					Vec3f( intAsFloat( i ) / intAsFloat( width ), intAsFloat( j ) / intAsFloat( height ), 0 ) );*/
 				Ray r = p_camera->generateRay( ( i + 0.5 ) / ( width-1 ), ( j + 0.5 ) / ( height-1 ) );
 				p_texture.setPixel( i, j, ( r.getDirection() + 1.f ) * 0.5f );
 			}
