@@ -23,7 +23,7 @@ namespace RT_ISICG
 						LightSample ls	   = light->sample( hitRecord._point );
 						Ray			shadow = Ray( hitRecord._point, ls._direction );
 						shadow.offset( hitRecord._normal );
-						if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax ) )
+						if ( !p_scene.intersectAny( shadow, p_tMin, ls._distance ) )
 						{
 							finalShadow += _directLighting( ls, p_ray, hitRecord );
 						}
@@ -38,7 +38,7 @@ namespace RT_ISICG
 					LightSample ls	   = light->sample( hitRecord._point );
 					Ray			shadow = Ray( hitRecord._point, ls._direction );
 					shadow.offset( hitRecord._normal );
-					if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax ) )
+					if ( !p_scene.intersectAny( shadow, p_tMin, ls._distance ) )
 					{
 						finalLight += _directLighting( ls, p_ray, hitRecord );
 					}

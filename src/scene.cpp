@@ -1,7 +1,9 @@
 #include "scene.hpp"
 #include "materials/color_material.hpp"
 #include "materials/lambert_material.hpp"
+#include "materials/mf_material.hpp"
 #include "materials/plastic_material.hpp"
+#include "materials/mirror_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "lights/point_light.hpp"
@@ -29,7 +31,7 @@ namespace RT_ISICG
 
 	void Scene::init()
 	{
-		// Add objects.
+		/*// Add objects.
 		//_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 
 		_addObject( new Sphere( "Sphere2", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
@@ -43,12 +45,14 @@ namespace RT_ISICG
 		//_addMaterial( new LambertMaterial( "Grey", GREY ) );
 
 		_addMaterial( new PlasticMaterial( "GreyM", GREY*0.7f, GREY*0.3f, 64.f ) );
+		_addMaterial( new MFMaterial( "RedReal", RED, RED, 1.f, 0.3, Vec3f( 1.f, 0.85f, 0.57f ) ) );
 
 		// Link objects and materials.
 		//_attachMaterialToObject( "Blue", "Sphere1" );
 		
 		//_attachMaterialToObject( "Grey", "Sphere2" );
-		_attachMaterialToObject( "GreyM", "Sphere2" );
+		//_attachMaterialToObject( "GreyM", "Sphere2" );
+		_attachMaterialToObject( "RedReal", "Sphere2" );
 		_attachMaterialToObject( "Red", "Plan1" );
 		
 
@@ -56,7 +60,53 @@ namespace RT_ISICG
 		//_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f) );
 		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, 2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 0.f, 2.f ), WHITE, 40.f ) );
 
-		_addLight( new PointLight( Vec3f( 0.f, 0.f, -2.f ), WHITE, 60.f ) );
+		_addLight( new PointLight( Vec3f( 0.f, 0.f, -2.f ), WHITE, 60.f ) );*/
+
+		// ================================================================
+		// Add materials .
+		// ================================================================
+		_addMaterial( new LambertMaterial( " WhiteMatte ", WHITE ) );
+		_addMaterial( new LambertMaterial( " RedMatte ", RED ) );
+		_addMaterial( new LambertMaterial( " GreenMatte ", GREEN ) );
+		_addMaterial( new LambertMaterial( " BlueMatte ", BLUE ) );
+		_addMaterial( new LambertMaterial( " GreyMatte ", GREY ) );
+		_addMaterial( new LambertMaterial( " MagentaMatte ", MAGENTA ) );
+		
+		_addMaterial( new MirrorMaterial( " Mirror1 " ) );
+
+		// ================================================================
+		// Add objects .
+		// ================================================================
+		// Spheres .
+		_addObject( new Sphere( " Sphere1 ", Vec3f( -2.f, 0.f, 3.f ), 1.5f ) );
+		//_attachMaterialToObject( " WhiteMatte ", " Sphere1 " );
+		_attachMaterialToObject( " Mirror1 ", " Sphere1 " );
+
+		_addObject( new Sphere( " Sphere2 ", Vec3f( 2.f, 0.f, 3.f ), 1.5f ) );
+		_attachMaterialToObject( " WhiteMatte ", " Sphere2 " );
+
+		// Pseudo Cornell box made with infinite planes.
+		_addObject( new Plane( " PlaneGround ", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+
+		_attachMaterialToObject( " GreyMatte ", " PlaneGround " );
+		_addObject( new Plane( " PlaneLeft ", Vec3f( 5.f, 0.f, 0.f ), Vec3f( -1.f, 0.f, 0.f ) ) );
+
+		_attachMaterialToObject( " RedMatte ", " PlaneLeft " );
+		_addObject( new Plane( " PlaneCeiling ", Vec3f( 0.f, 7.f, 0.f ), Vec3f( 0.f, -1.f, 0.f ) ) );
+
+		_attachMaterialToObject( " GreenMatte ", " PlaneCeiling " );
+		_addObject( new Plane( " PlaneRight ", Vec3f( -5.f, 0.f, 0.f ), Vec3f( 1.f, 0.f, 0.f ) ) );
+
+		_attachMaterialToObject( " BlueMatte ", " PlaneRight " );
+		_addObject( new Plane( " PlaneFront ", Vec3f( 0.f, 0.f, 10.f ), Vec3f( 0.f, 0.f, -1.f ) ) );
+
+		_attachMaterialToObject( " MagentaMatte ", " PlaneFront " );
+
+		// ================================================================
+		// Add lights .
+		// ================================================================
+		_addLight( new PointLight( Vec3f( 0.f, 5.f, 0.f ), WHITE, 100.f ) );
+		//_addLight(new QuadLight( Vec3f( 1.f, 5.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
 	}
 
 	bool Scene::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const

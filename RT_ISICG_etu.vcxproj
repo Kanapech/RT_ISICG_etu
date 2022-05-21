@@ -157,14 +157,18 @@
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
+    <ClCompile Include="src\integrators\WhittedIntegrator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\brdfs\cook_brdf.hpp" />
     <ClInclude Include="src\brdfs\phong_brdf.hpp" />
     <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
     <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
     <ClInclude Include="src\lights\point_light.hpp" />
     <ClInclude Include="src\lights\quad_light.hpp" />
     <ClInclude Include="src\materials\lambert_material.hpp" />
+    <ClInclude Include="src\materials\mf_material.hpp" />
+    <ClInclude Include="src\materials\mirror_material.hpp" />
     <ClInclude Include="src\materials\plastic_material.hpp" />
     <ClInclude Include="src\objects\plane.hpp" />
     <ClInclude Include="src\geometry\plane_geometry.hpp" />
@@ -189,6 +193,7 @@
     <ClInclude Include="src\texture.hpp" />
     <ClInclude Include="src\utils\chrono.hpp" />
     <ClInclude Include="src\utils\console_progress_bar.hpp" />
+    <ClInclude Include="src\integrators\WhittedIntegrator.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

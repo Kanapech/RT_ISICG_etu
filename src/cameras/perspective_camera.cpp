@@ -28,7 +28,7 @@ namespace RT_ISICG
 		float h	   = glm::tan( glm::radians( _fovy ) / 2.f ) * _focalDistance;
 		_viewportU = 2 * ( h * _aspectRatio ) * _u;
 		_viewportV = 2 * h * _v;
-		_viewportTopLeftCorner = - _w * _focalDistance - _viewportU / 2.f + _viewportV / 2.f;
+		_viewportTopLeftCorner = _position - _w * _focalDistance - ( _viewportU / 2.f ) + ( _viewportV / 2.f );
 	}
 
 } // namespace RT_ISICG

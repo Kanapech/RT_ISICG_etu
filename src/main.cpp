@@ -17,29 +17,35 @@ namespace RT_ISICG
 		scene.init();
 
 		// Create a perspective camera.
-		PerspectiveCamera camera( float( imgWidth ) / imgHeight );
+		//PerspectiveCamera camera( float( imgWidth ) / imgHeight );
 		//PerspectiveCamera camera( Vec3f( 0.f, 0.f, -2.f ), Vec3f( 0.f, 0.f, 79.f ), Vec3f( 0.f, 1.f, 0.f ), 60.f, float( imgWidth ) / imgHeight );
 		//PerspectiveCamera camera( Vec3f( 1.f, 0.f, 0.f ), Vec3f( 1.f, 0.f, 1.f ), Vec3f( 0.f, 1.f, 0.f ), 60.f, float( imgWidth ) / imgHeight );
 		//PerspectiveCamera camera( Vec3f( 0.f, 1.f, 0.f ), Vec3f( 0.f, 1.f, 1.f ), Vec3f( 0.f, 1.f, 0.f ), 60.f, float( imgWidth ) / imgHeight );
 		//PerspectiveCamera camera( Vec3f( 4.f, -1.f, 0.f ), Vec3f( -1.f, -1.f, 2.f ), Vec3f( 0.f, 1.f, 0.f ), 60.f, float( imgWidth ) / imgHeight );
 		
-		/* PerspectiveCamera camera( Vec3f( 0.f, 0.f, 0.f ),
+		/*PerspectiveCamera camera( Vec3f( 0.f, 0.f, 0.f ),
 								  Vec3f( 0.f, 0.f, 1.f ),
 								  Vec3f( 0.f, 1.f, 0.f ),
 								  60.f,
 								  float( imgWidth ) / imgHeight );*/
+		PerspectiveCamera camera( Vec3f( 0.f, 2.f, -6.f ),
+								  Vec3f( 0.f, 0.f, 79.f ),
+								  Vec3f( 0.f, 1.f, 0.f ),
+								  60.f,
+								  float( imgWidth ) / imgHeight );
 
 		// Create and setup the renderer.
 		Renderer renderer;
 		//renderer.setIntegrator( IntegratorType::RAY_CAST );
-		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
+		//renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
+		renderer.setIntegrator( IntegratorType::WHITTED );
 		renderer.setBackgroundColor( GREY );
 
 		// Launch rendering.
 		std::cout << "Rendering..." << std::endl;
 		std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
-		renderer.setNbPixelSamples( 32 );
+		renderer.setNbPixelSamples( 1 );
 		float renderingTime = renderer.renderImage( scene, &camera, img );
 
 		std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
