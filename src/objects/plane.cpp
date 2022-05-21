@@ -22,4 +22,12 @@ namespace RT_ISICG
 		return false;
 	}
 
+	bool Plane::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
+	{
+		float t1;
+
+		if ( _geometry.intersect( p_ray, t1 ) ) { return true; }
+
+		return false;
+	}
 } // namespace RT_ISICG
