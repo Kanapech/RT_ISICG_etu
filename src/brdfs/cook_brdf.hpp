@@ -1,4 +1,3 @@
-#pragma once__RT_ISICG_BRDF_COOK__
 #ifndef __RT_ISICG_BRDF_COOK__
 #define __RT_ISICG_BRDF_COOK__
 
@@ -9,6 +8,7 @@
 
 namespace RT_ISICG
 {
+	#pragma once
 	class CookBRDF
 	{
 	  public:

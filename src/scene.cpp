@@ -4,6 +4,7 @@
 #include "materials/mf_material.hpp"
 #include "materials/plastic_material.hpp"
 #include "materials/mirror_material.hpp"
+#include "materials/transparent_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "lights/point_light.hpp"
@@ -73,6 +74,7 @@ namespace RT_ISICG
 		_addMaterial( new LambertMaterial( " MagentaMatte ", MAGENTA ) );
 		
 		_addMaterial( new MirrorMaterial( " Mirror1 " ) );
+		_addMaterial( new TransparentMaterial( " Transparent1 " ) );
 
 		// ================================================================
 		// Add objects .
@@ -83,7 +85,8 @@ namespace RT_ISICG
 		_attachMaterialToObject( " Mirror1 ", " Sphere1 " );
 
 		_addObject( new Sphere( " Sphere2 ", Vec3f( 2.f, 0.f, 3.f ), 1.5f ) );
-		_attachMaterialToObject( " WhiteMatte ", " Sphere2 " );
+		//_attachMaterialToObject( " WhiteMatte ", " Sphere2 " );
+		_attachMaterialToObject( " Transparent1 ", " Sphere2 " );
 
 		// Pseudo Cornell box made with infinite planes.
 		_addObject( new Plane( " PlaneGround ", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
