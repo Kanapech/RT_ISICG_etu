@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_POINT_LIGHT__
 #define __RT_ISICG_POINT_LIGHT__
 
-#include "lights/base_light.hpp"
+#include "base_light.hpp"
 
 namespace RT_ISICG
 {
@@ -14,10 +14,8 @@ namespace RT_ISICG
 		{
 		}
 
-		LightSample sample( const Vec3f & p_point ) const override;
-
-	  private:
-		Vec3f _position;
+		virtual LightSample sample( const Vec3f & p_point ) const;
+		Vec3f _position = VEC3F_ZERO;
 
 	};
 

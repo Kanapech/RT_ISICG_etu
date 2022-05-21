@@ -23,11 +23,11 @@ namespace RT_ISICG
 			
 			if ( delta == 0 ) {
 				p_t1 = -beta / 2.f;
-				p_t2 = p_t1;
+				p_t2 = -1.f;
 			}
 			else {
-				float t1 = -beta + sqrt( delta ) / 2.f;
-				float t2 = -beta - sqrt( delta ) / 2.f;
+				float t1 = (-beta + sqrt( delta ) ) / 2.f;
+				float t2 = (-beta - sqrt( delta ) ) / 2.f;
 
 				p_t1 = glm::min( t1, t2 );
 				p_t2 = glm::max( t1, t2 );

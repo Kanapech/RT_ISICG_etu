@@ -1,5 +1,6 @@
 #include "renderer.hpp"
 #include "integrators/ray_cast_integrator.hpp"
+#include "integrators/DirectLightingIntegrator.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
@@ -13,6 +14,7 @@ namespace RT_ISICG
 
 		switch ( p_integratorType )
 		{
+		case IntegratorType::DIRECT_LIGHTING: _integrator = new DirectLightingIntegrator(); break;
 		case IntegratorType::RAY_CAST:
 		default:
 		{
@@ -52,11 +54,12 @@ namespace RT_ISICG
 					Vec3f( intAsFloat( i ) / intAsFloat( width ), intAsFloat( j ) / intAsFloat( height ), 0 ) );*/
 
 
-				/* Ray r	   = p_camera->generateRay( ( i + 0.5f ) / width, ( j + 0.5f ) / height );
+				/*Ray r	   = p_camera->generateRay( ( i + 0.5f ) / width, ( j + 0.5f ) / height );
 				Vec3f couleur = _integrator->Li( p_scene, r, 0.f, 100.f );
 				
 				//p_texture.setPixel( i, j, ( r.getDirection() + 1.f ) * 0.5f );
 				p_texture.setPixel( i, j, couleur );*/
+
 				Vec3f moy = VEC3F_ZERO;
 
 				for (int k = 0; k < _nbPixelSamples; k++) {
