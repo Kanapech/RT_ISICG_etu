@@ -1,5 +1,7 @@
 #include "scene.hpp"
 #include "materials/color_material.hpp"
+#include "materials/lambert_material.hpp"
+#include "materials/plastic_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "lights/point_light.hpp"
@@ -28,20 +30,33 @@ namespace RT_ISICG
 	void Scene::init()
 	{
 		// Add objects.
-		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		//_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+
+		_addObject( new Sphere( "Sphere2", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 		_addObject( new Plane( "Plan1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
 
 		// Add materials.
-		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
-		_addMaterial( new ColorMaterial( "Red", RED ) );
+		//_addMaterial( new ColorMaterial( "Blue", BLUE ) );
+		//_addMaterial( new ColorMaterial( "Red", RED ) );
+
+		_addMaterial( new LambertMaterial( "Red", RED ) );
+		//_addMaterial( new LambertMaterial( "Grey", GREY ) );
+
+		_addMaterial( new PlasticMaterial( "GreyM", GREY*0.7f, GREY*0.3f, 64.f ) );
 
 		// Link objects and materials.
-		_attachMaterialToObject( "Blue", "Sphere1" );
+		//_attachMaterialToObject( "Blue", "Sphere1" );
+		
+		//_attachMaterialToObject( "Grey", "Sphere2" );
+		_attachMaterialToObject( "GreyM", "Sphere2" );
 		_attachMaterialToObject( "Red", "Plan1" );
+		
 
 		// Add lights
 		//_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f) );
-		_addLight( new QuadLight( Vec3f( 1.f, 10.f, 2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 0.f, 2.f ), WHITE, 40.f ) );
+		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, 2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 0.f, 2.f ), WHITE, 40.f ) );
+
+		_addLight( new PointLight( Vec3f( 0.f, 0.f, -2.f ), WHITE, 60.f ) );
 	}
 
 	bool Scene::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
@@ -59,15 +74,14 @@ namespace RT_ISICG
 		return hit;
 	}
 
-	bool Scene::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
+	bool Scene::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
 		float tMax = p_tMax;
 		bool  hit  = false;
 		for ( const ObjectMapPair & object : _objectMap )
 		{
-			if ( object.second->intersectAny( p_ray, p_tMin, tMax, p_hitRecord ) )
+			if ( object.second->intersectAny( p_ray, p_tMin, tMax ) )
 			{
-				//tMax = p_hitRecord._distance; // update tMax to conserve the nearest hit
 				hit	 = true;
 			}
 		}

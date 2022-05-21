@@ -67,7 +67,7 @@ namespace RT_ISICG
 					float randomx = rand() % _nbPixelSamples;
 					float randomy = rand() % _nbPixelSamples;
 					Ray r = p_camera->generateRay( ( i + randomx / _nbPixelSamples ) / width, ( j + randomy / _nbPixelSamples ) / height );
-					Vec3f couleur = _integrator->Li( p_scene, r, 0.f, 100.f );
+					Vec3f couleur = _integrator->Li( p_scene, r, 0.f, 1000.f );
 					moy += couleur;
 				}
 

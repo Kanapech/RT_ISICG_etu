@@ -6,7 +6,7 @@ namespace RT_ISICG
 	{
 		float _distance	 = glm::distance( _position, p_point );
 		Vec3f _radiance	 = _color * _power / ( _distance * _distance );
-		Vec3f _direction = glm::normalize( p_point - _position );
+		Vec3f _direction = glm::normalize( _position - p_point );
 
 		return LightSample( _direction, _distance, _radiance, 1.f );
 	}

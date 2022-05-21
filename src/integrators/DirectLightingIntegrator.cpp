@@ -21,11 +21,11 @@ namespace RT_ISICG
 					for ( int i = 0; i < _nbLightSample; i++ )
 					{
 						LightSample ls	   = light->sample( hitRecord._point );
-						Ray			shadow = Ray( hitRecord._point, -ls._direction );
+						Ray			shadow = Ray( hitRecord._point, ls._direction );
 						shadow.offset( hitRecord._normal );
-						if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax, hitRecord ) )
+						if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax ) )
 						{
-							finalShadow += hitRecord._object->getMaterial()->getFlatColor() * _directLighting( ls, hitRecord );
+							finalShadow += _directLighting( ls, p_ray, hitRecord );
 						}
 					}
 
@@ -36,11 +36,11 @@ namespace RT_ISICG
 				else
 				{
 					LightSample ls	   = light->sample( hitRecord._point );
-					Ray			shadow = Ray( hitRecord._point, -ls._direction );
+					Ray			shadow = Ray( hitRecord._point, ls._direction );
 					shadow.offset( hitRecord._normal );
-					if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax, hitRecord ) )
+					if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax ) )
 					{
-						finalLight += hitRecord._object->getMaterial()->getFlatColor() * _directLighting( ls, hitRecord );
+						finalLight += _directLighting( ls, p_ray, hitRecord );
 					}
 				}				
 			}
@@ -53,9 +53,9 @@ namespace RT_ISICG
 		}
 	}
 
-	Vec3f DirectLightingIntegrator::_directLighting( const LightSample & ls, HitRecord & hitRecord ) const
+	Vec3f DirectLightingIntegrator::_directLighting( const LightSample & ls, const Ray & p_ray, HitRecord & hitRecord ) const
 	{
-		float cosTheta = glm::max( glm::dot( -ls._direction, hitRecord._normal ), 0.f );
-		return hitRecord._object->getMaterial()->getFlatColor() * ls._radiance * cosTheta;
+		float cosTheta = glm::max( glm::dot( ls._direction, hitRecord._normal ), 0.f );
+		return hitRecord._object->getMaterial()->shade( p_ray, hitRecord, ls ) * ls._radiance * cosTheta;
 	}
 } // namespace RT_ISICG
