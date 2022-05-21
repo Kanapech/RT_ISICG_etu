@@ -3,6 +3,7 @@
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "lights/point_light.hpp"
+#include "lights/quad_light.hpp"
 
 namespace RT_ISICG
 {
@@ -39,7 +40,8 @@ namespace RT_ISICG
 		_attachMaterialToObject( "Red", "Plan1" );
 
 		// Add lights
-		_addLight( new PointLight( "PointLight", Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f) );
+		//_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f) );
+		_addLight( new QuadLight( Vec3f( 1.f, 10.f, 2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 0.f, 2.f ), WHITE, 40.f ) );
 	}
 
 	bool Scene::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
@@ -51,6 +53,21 @@ namespace RT_ISICG
 			if ( object.second->intersect( p_ray, p_tMin, tMax, p_hitRecord ) )
 			{
 				tMax = p_hitRecord._distance; // update tMax to conserve the nearest hit
+				hit	 = true;
+			}
+		}
+		return hit;
+	}
+
+	bool Scene::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
+	{
+		float tMax = p_tMax;
+		bool  hit  = false;
+		for ( const ObjectMapPair & object : _objectMap )
+		{
+			if ( object.second->intersectAny( p_ray, p_tMin, tMax, p_hitRecord ) )
+			{
+				//tMax = p_hitRecord._distance; // update tMax to conserve the nearest hit
 				hit	 = true;
 			}
 		}

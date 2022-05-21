@@ -1,4 +1,5 @@
 #include "plane.hpp"
+#include "defines.hpp"
 
 namespace RT_ISICG
 {

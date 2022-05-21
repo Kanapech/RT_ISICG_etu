@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\integrators\DirectLightingIntegrator.cpp" />
     <ClCompile Include="src\lights\point_light.cpp" />
+    <ClCompile Include="src\lights\quad_light.cpp" />
     <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\geometry\plane_geometry.cpp" />
     <ClCompile Include="src\cameras\perspective_camera.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
     <ClInclude Include="src\lights\point_light.hpp" />
+    <ClInclude Include="src\lights\quad_light.hpp" />
     <ClInclude Include="src\objects\plane.hpp" />
     <ClInclude Include="src\geometry\plane_geometry.hpp" />
     <ClInclude Include="src\cameras\base_camera.hpp" />

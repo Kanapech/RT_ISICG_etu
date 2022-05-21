@@ -1,5 +1,6 @@
 #include "sphere.hpp"
 
+
 namespace RT_ISICG
 {
 	bool Sphere::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const

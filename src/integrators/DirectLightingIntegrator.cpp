@@ -15,15 +15,37 @@ namespace RT_ISICG
 			Vec3f finalLight = VEC3F_ZERO;
 			for ( BaseLight * light : p_scene.getLights() )
 			{
-				LightSample ls = light->sample( hitRecord._point );
-				Ray			shadow = Ray( hitRecord._point, -ls._direction );
-				shadow.offset( hitRecord._normal );
-				if ( !p_scene.intersect(shadow, p_tMin, p_tMax, hitRecord)) {
-					finalLight += hitRecord._object->getMaterial()->getFlatColor() * _directLighting( ls, hitRecord );
+				if (light->isSurface()) {
+
+					Vec3f finalShadow = VEC3F_ZERO;
+					for ( int i = 0; i < _nbLightSample; i++ )
+					{
+						LightSample ls	   = light->sample( hitRecord._point );
+						Ray			shadow = Ray( hitRecord._point, -ls._direction );
+						shadow.offset( hitRecord._normal );
+						if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax, hitRecord ) )
+						{
+							finalShadow += hitRecord._object->getMaterial()->getFlatColor() * _directLighting( ls, hitRecord );
+						}
+					}
+
+					finalShadow /= _nbLightSample;
+					finalLight += finalShadow;
+					//std::cout << finalLight.x << finalLight.y << finalLight.z << std::endl;
 				}
+				else
+				{
+					LightSample ls	   = light->sample( hitRecord._point );
+					Ray			shadow = Ray( hitRecord._point, -ls._direction );
+					shadow.offset( hitRecord._normal );
+					if ( !p_scene.intersectAny( shadow, p_tMin, p_tMax, hitRecord ) )
+					{
+						finalLight += hitRecord._object->getMaterial()->getFlatColor() * _directLighting( ls, hitRecord );
+					}
+				}				
 			}
 
-			return finalLight;			
+			return finalLight;		
 		}
 		else
 		{

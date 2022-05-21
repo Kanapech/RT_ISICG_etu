@@ -9,8 +9,8 @@ namespace RT_ISICG
 	{
 	  public:
 
-		PointLight( const std::string & p_name, const Vec3f & p_position, const Vec3f & p_color, const float p_power = 1.f )
-			: _position( p_position ), BaseLight( p_name, p_color, p_power )
+		PointLight( const Vec3f & p_position, const Vec3f & p_color, const float p_power = 1.f )
+			: _position( p_position ), BaseLight( p_color, p_power )
 		{
 		}
 
