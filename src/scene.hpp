@@ -28,6 +28,8 @@ namespace RT_ISICG
 		// Initialization from file.
 		void init( const std::string & p_path ) { throw std::exception( "Not implemented !" ); }
 
+		void loadFileTriangleMesh( const std::string & p_name, const std::string & p_path );
+
 		const LightList & getLights() const { return _lightList; }
 
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.

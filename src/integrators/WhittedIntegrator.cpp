@@ -34,9 +34,10 @@ namespace RT_ISICG
 				float iorIN;
 				float iorOUT;
 
+				//Gère l'entrée et la sortie du materiau
 				if ( insideObject ) { 
 					iorIN = hitRecord._object->getMaterial()->getIOR();
-					iorOUT = 1.f;
+					iorOUT = 1.f; //Indice de réfraction dans le vide
 				}
 				else
 				{
@@ -58,10 +59,11 @@ namespace RT_ISICG
 				float cosThetaI = glm::dot( hitRecord._normal, -p_ray.getDirection() );
 				float cosThetaT = glm::dot( -hitRecord._normal, refractRay.getDirection() );
 
-				float RS = ( iorIN * cosThetaI - iorOUT * cosThetaT ) / ( iorIN * cosThetaT + iorOUT * cosThetaI );
-				float RP = ( iorIN * cosThetaT - iorOUT * cosThetaI ) / ( iorIN * cosThetaT + iorOUT * cosThetaI );
+				float RS = ( iorOUT * cosThetaI - iorIN * cosThetaT ) / ( iorOUT * cosThetaI + iorIN * cosThetaT );
+				float RP = ( iorOUT * cosThetaT - iorIN * cosThetaI ) / ( iorOUT * cosThetaT + iorIN * cosThetaI );
 
-				float kr = ( RS*RS + RP*RP ) * 0.5f;
+				float kr = ( RS*RS + RP*RP ) / 2.f;
+
 				if ( kr < 1 )
 					return ( 1 - kr ) * trace( p_scene, refractRay, p_tMin, p_tMax, bounce++, !insideObject )
 						   + kr * trace( p_scene, refractRay, p_tMin, p_tMax, bounce++, insideObject );
